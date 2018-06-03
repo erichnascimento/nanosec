@@ -9,4 +9,5 @@ type Storage interface {
 	// TODO Lock()
 }
 
-var NotFoundError = fmt.Errorf("Document not found")
+var DocumentNotFoundError = fmt.Errorf("Document not found")
+var DocumentAlreadyExistsError = fmt.Errorf("Document already exists")

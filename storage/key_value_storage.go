@@ -17,7 +17,7 @@ func (s *kvStorage) Get(k string) (interface{}, error) {
 		return d, nil
 	}
 
-	return nil, NotFoundError
+	return nil, DocumentNotFoundError
 }
 
 func (s *kvStorage) Delete(k string) error {
@@ -26,5 +26,5 @@ func (s *kvStorage) Delete(k string) error {
 		return nil
 	}
 
-	return NotFoundError
+	return DocumentNotFoundError
 }

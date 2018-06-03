@@ -11,7 +11,6 @@ type Resource struct {
 }
 
 type ResourceStorage interface {
-	storage.Storage
 	AddResource(string) (*Resource, error)
 	RenameResource(string, string) (*Resource, error)
 	GetResource(string) (*Resource, error)
@@ -26,7 +25,7 @@ type resourceStorage struct {
 
 func (s *resourceStorage) AddResource(name string) (*Resource, error) {
 	r := &Resource{name}
-	if _, err := s.Get(name); err != storage.NotFoundError {
+	if _, err := s.Get(name); err != storage.DocumentNotFoundError {
 		return nil, ResourceAlreadyExistsError
 	}
 	s.Set(name, r)

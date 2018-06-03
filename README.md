@@ -14,27 +14,17 @@ import (
 )
 
 func main() {
+  // Resources
   s := storage.NewKeyValueStorage()
   resources := resource.NewResourceStorage(s)
-
-  r1, _ := resources.AddResource("org.corporation.add")
-  fmt.Println("Added resource:", r1.Name)
-
-  r2, _ := resources.RenameResource(r1.Name, "org.corporation.create")
-  fmt.Println("Renamed resource from:", r1.Name, "to", r2.Name)
-
-  r3, _ := resources.GetResource(r2.Name)
-  fmt.Println("Getting resource:", r3.Name)
-
-  err := resources.DeleteResource(r3.Name)
-  if err == nil {
-    fmt.Println("Resource:", r3.Name, "deleted sucessfully")
-  }
+  resources.AddResource("org.corporation.add")
+  resources.RenameResource(r1.Name, "org.corporation.create")
+  resources.GetResource(r2.Name)
+  resources.DeleteResource(r3.Name)
 
   // Roles
   s = storage.NewKeyValueStorage()
   roles := role.NewRoleStorage(s)
-
   roles.AddRole("root")
   roles.RenameRole("root", "admin")
   roles.GetRole("admin")

@@ -75,7 +75,7 @@ func TestGetNotAddedResource(t *testing.T) {
 	rs.AddResource(name)
 
 	_, err := rs.GetResource("barResource")
-	if err != storage.NotFoundError {
+	if err != storage.DocumentNotFoundError {
 		t.Errorf(`NotFoundError expected when resource was not added, given = "%v"`, err)
 	}
 }
@@ -116,7 +116,7 @@ func TestRenameNoExistentResource(t *testing.T) {
 	const oldName = "fooResource"
 	const newName = "barResource"
 	_, err := rs.RenameResource(oldName, newName)
-	if err != storage.NotFoundError {
+	if err != storage.DocumentNotFoundError {
 		t.Errorf(`NotFoundError expected when trying to rename a no existent resource, given = "%v"`, err)
 	}
 }
