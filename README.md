@@ -1,3 +1,5 @@
+![build passing](https://travis-ci.com/erichnascimento/nanosec.svg?branch=master)
+[![codecov](https://codecov.io/gh/erichnascimento/nanosec/branch/master/graph/badge.svg)](https://codecov.io/gh/erichnascimento/nanosec)
 # Introduction
 In progress
 
