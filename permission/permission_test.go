@@ -17,7 +17,7 @@ func TestNotGrantedAccess(t *testing.T) {
 	storage, _ := permission.NewMemoryStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
-	granter.Grant([]string{"root"})
+	granter.Grant("root")
 
 	checker := permission.NewChecker(resource, storage)
 	hasAccess, _ := checker.HasAccess([]string{"admin"})
@@ -36,7 +36,7 @@ func TestGrantedAccess(t *testing.T) {
 	storage, _ := permission.NewMemoryStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
-	granter.Grant([]string{"admin", "attendent"})
+	granter.Grant("admin", "attendent")
 
 	checker := permission.NewChecker(resource, storage)
 	hasAccess, _ := checker.HasAccess([]string{"admin"})
@@ -60,8 +60,8 @@ func TestRevokedAccess(t *testing.T) {
 	storage, _ := permission.NewMemoryStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
-	granter.Grant([]string{"admin"})
-	granter.Revoke([]string{"admin"})
+	granter.Grant("admin")
+	granter.Revoke("admin")
 
 	checker := permission.NewChecker(resource, storage)
 	hasAccess, _ := checker.HasAccess([]string{"admin"})

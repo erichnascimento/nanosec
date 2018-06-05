@@ -5,8 +5,8 @@ import (
 )
 
 type Granter interface {
-	Grant([]string) error
-	Revoke([]string) error
+	Grant(...string) error
+	Revoke(...string) error
 }
 
 const grantErrorFmt = `Error granting access to "%s" for %v. Reason: %v`
@@ -17,7 +17,7 @@ type granter struct {
 	storage  Storage
 }
 
-func (g *granter) Grant(roles []string) error {
+func (g *granter) Grant(roles ...string) error {
 	err := g.storage.AddRoles(roles)
 	if err != nil {
 		return fmt.Errorf(grantErrorFmt, g.resource, roles, err)
@@ -25,7 +25,7 @@ func (g *granter) Grant(roles []string) error {
 	return nil
 }
 
-func (g *granter) Revoke(roles []string) error {
+func (g *granter) Revoke(roles ...string) error {
 	err := g.storage.RemoveRoles(roles)
 	if err != nil {
 		return fmt.Errorf(revokeErrorFmt, g.resource, roles, err)
