@@ -14,7 +14,7 @@ func TestNotGrantedAccess(t *testing.T) {
 	defer redis.Close()
 
 	resource := "my.printer"
-	storage, _ := permission.NewMemoryStorage(resource, redis)
+	storage, _ := permission.NewKeyValueStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
 	granter.Grant("root")
@@ -33,7 +33,7 @@ func TestGrantedAccess(t *testing.T) {
 	defer redis.Close()
 
 	resource := "my.printer"
-	storage, _ := permission.NewMemoryStorage(resource, redis)
+	storage, _ := permission.NewKeyValueStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
 	granter.Grant("admin", "attendent")
@@ -57,7 +57,7 @@ func TestRevokedAccess(t *testing.T) {
 	defer redis.Close()
 
 	resource := "my.printer"
-	storage, _ := permission.NewMemoryStorage(resource, redis)
+	storage, _ := permission.NewKeyValueStorage(resource, redis)
 
 	granter := permission.NewGranter(resource, storage)
 	granter.Grant("admin")

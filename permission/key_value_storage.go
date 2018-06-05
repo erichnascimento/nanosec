@@ -4,12 +4,12 @@ import (
 	"github.com/erichnascimento/nanosec/storage"
 )
 
-type memoryStorage struct {
+type keyValueStorage struct {
 	resource  string
 	kvStorage storage.KeyValueStorage
 }
 
-func (s *memoryStorage) AddRoles(roles []string) error {
+func (s *keyValueStorage) AddRoles(roles []string) error {
 	_, err := s.kvStorage.SetAdd(s.resource, roles...)
 	if err != nil {
 		return err
@@ -18,7 +18,7 @@ func (s *memoryStorage) AddRoles(roles []string) error {
 	return nil
 }
 
-func (s *memoryStorage) RemoveRoles(roles []string) error {
+func (s *keyValueStorage) RemoveRoles(roles []string) error {
 	_, err := s.kvStorage.SRem(s.resource, roles...)
 	if err != nil {
 		return err
@@ -27,7 +27,7 @@ func (s *memoryStorage) RemoveRoles(roles []string) error {
 	return nil
 }
 
-func (s *memoryStorage) HasAnyRole(roles []string) (bool, error) {
+func (s *keyValueStorage) HasAnyRole(roles []string) (bool, error) {
 	for _, role := range roles {
 		isMember, err := s.kvStorage.IsMember(s.resource, role)
 		if err != nil {
@@ -40,8 +40,8 @@ func (s *memoryStorage) HasAnyRole(roles []string) (bool, error) {
 	return false, nil
 }
 
-func NewMemoryStorage(resource string, kvStorage storage.KeyValueStorage) (Storage, error) {
-	storage := &memoryStorage{
+func NewKeyValueStorage(resource string, kvStorage storage.KeyValueStorage) (Storage, error) {
+	storage := &keyValueStorage{
 		resource:  resource,
 		kvStorage: kvStorage,
 	}
@@ -49,4 +49,4 @@ func NewMemoryStorage(resource string, kvStorage storage.KeyValueStorage) (Stora
 	return storage, nil
 }
 
-const errorCreatingNewMemoryStorageFmt = `Error when creating new MemoryStorage. Reason: %v`
+const errorCreatingNewKeyValueStorageFmt = `Error when creating new KeyValueStorage. Reason: %v`
