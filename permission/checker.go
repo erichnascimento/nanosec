@@ -16,7 +16,7 @@ type checker struct {
 }
 
 func (c *checker) HasAccess(roles []string) (bool, error) {
-	hasAccess, err := c.s.HasAnyRole(roles)
+	hasAccess, err := c.s.HasAnyRole(c.resource, roles...)
 	if err != nil {
 		err = fmt.Errorf(hasAccessErrorFmt, roles, c.resource, err)
 	}

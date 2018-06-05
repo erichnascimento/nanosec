@@ -18,7 +18,7 @@ type granter struct {
 }
 
 func (g *granter) Grant(roles ...string) error {
-	err := g.storage.AddRoles(roles)
+	err := g.storage.AddRoles(g.resource, roles...)
 	if err != nil {
 		return fmt.Errorf(grantErrorFmt, g.resource, roles, err)
 	}
@@ -26,7 +26,7 @@ func (g *granter) Grant(roles ...string) error {
 }
 
 func (g *granter) Revoke(roles ...string) error {
-	err := g.storage.RemoveRoles(roles)
+	err := g.storage.RemoveRoles(g.resource, roles...)
 	if err != nil {
 		return fmt.Errorf(revokeErrorFmt, g.resource, roles, err)
 	}

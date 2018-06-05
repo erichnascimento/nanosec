@@ -5,12 +5,11 @@ import (
 )
 
 type keyValueStorage struct {
-	resource  string
 	kvStorage storage.KeyValueStorage
 }
 
-func (s *keyValueStorage) AddRoles(roles []string) error {
-	_, err := s.kvStorage.SetAdd(s.resource, roles...)
+func (s *keyValueStorage) AddRoles(resource string, roles ...string) error {
+	_, err := s.kvStorage.SetAdd(resource, roles...)
 	if err != nil {
 		return err
 	}
@@ -18,8 +17,8 @@ func (s *keyValueStorage) AddRoles(roles []string) error {
 	return nil
 }
 
-func (s *keyValueStorage) RemoveRoles(roles []string) error {
-	_, err := s.kvStorage.SRem(s.resource, roles...)
+func (s *keyValueStorage) RemoveRoles(resource string, roles ...string) error {
+	_, err := s.kvStorage.SRem(resource, roles...)
 	if err != nil {
 		return err
 	}
@@ -27,9 +26,9 @@ func (s *keyValueStorage) RemoveRoles(roles []string) error {
 	return nil
 }
 
-func (s *keyValueStorage) HasAnyRole(roles []string) (bool, error) {
+func (s *keyValueStorage) HasAnyRole(resource string, roles ...string) (bool, error) {
 	for _, role := range roles {
-		isMember, err := s.kvStorage.IsMember(s.resource, role)
+		isMember, err := s.kvStorage.IsMember(resource, role)
 		if err != nil {
 			return false, err
 		}
@@ -40,9 +39,8 @@ func (s *keyValueStorage) HasAnyRole(roles []string) (bool, error) {
 	return false, nil
 }
 
-func NewKeyValueStorage(resource string, kvStorage storage.KeyValueStorage) (Storage, error) {
+func NewKeyValueStorage(kvStorage storage.KeyValueStorage) (Storage, error) {
 	storage := &keyValueStorage{
-		resource:  resource,
 		kvStorage: kvStorage,
 	}
 

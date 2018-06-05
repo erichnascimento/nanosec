@@ -1,7 +1,7 @@
 package permission
 
 type Storage interface {
-	AddRoles([]string) error
-	RemoveRoles([]string) error
-	HasAnyRole([]string) (bool, error)
+	AddRoles(resource string, roles ...string) error
+	RemoveRoles(resource string, roles ...string) error
+	HasAnyRole(resource string, roles ...string) (bool, error)
 }
