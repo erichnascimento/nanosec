@@ -42,6 +42,12 @@ func main() {
   s = storage.NewKeyValueStorage()
   credentials := credential.NewCredentialStorage(s)
 
+	userScheme := credentials.NewUserScheme("username")
+	cm := credentials.NewCredentialManager(userScheme)
+	cm.SetPassword("password")
+	cm.AddRoles([]string{"admin", "manager"})
+	cm.RemoveRoles([]string{"root"})
+
   credentials.AddCredentialForUser("erichnascimento", "1234", ["admin"])
   credentials.ChangeUserPassword("erichnascimento", "old", "new")
   credentials.AddUserRole("erichnascimento", ["hr", "finance"])
