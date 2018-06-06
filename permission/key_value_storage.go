@@ -40,11 +40,9 @@ func (s *keyValueStorage) HasAnyRole(resource string, roles ...string) (bool, er
 }
 
 func NewKeyValueStorage(kvStorage storage.KeyValueStorage) (Storage, error) {
-	storage := &keyValueStorage{
+	s := &keyValueStorage{
 		kvStorage: kvStorage,
 	}
 
-	return storage, nil
+	return s, nil
 }
-
-const errorCreatingNewKeyValueStorageFmt = `Error when creating new KeyValueStorage. Reason: %v`

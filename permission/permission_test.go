@@ -56,14 +56,14 @@ func TestRevokedAccess(t *testing.T) {
 	redis, _ := storage.NewMiniRedis()
 	defer redis.Close()
 
-	resource := "my.printer"
-	storage, _ := permission.NewKeyValueStorage(redis)
+	r := "my.printer"
+	s, _ := permission.NewKeyValueStorage(redis)
 
-	granter := permission.NewGranter(resource, storage)
+	granter := permission.NewGranter(r, s)
 	granter.Grant("admin")
 	granter.Revoke("admin")
 
-	checker := permission.NewChecker(resource, storage)
+	checker := permission.NewChecker(r, s)
 	hasAccess, _ := checker.HasAccess([]string{"admin"})
 	if hasAccess {
 		t.Error(`Access allowed for revoked role`)
