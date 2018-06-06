@@ -39,7 +39,7 @@ func (uc *userCredential) ChangePassword(currentPassword, newPassword string) er
 		return fmt.Errorf(`Error verifying current password: %v`, err)
 	}
 	if !match {
-		return currentPasswordDoesNotMatchError
+		return ErrCurrentPasswordDoesNotMatch
 	}
 
 	newEncryptedPassword, err := passwordHash(newPassword)
@@ -93,4 +93,4 @@ func passwordVerify(password, encryptedPassword string) (bool, error) {
 	return match, nil
 }
 
-var currentPasswordDoesNotMatchError = errors.New(`Current password informed does not matches`)
+var ErrCurrentPasswordDoesNotMatch = errors.New(`Current password informed does not matches`)
