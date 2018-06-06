@@ -84,7 +84,7 @@ func createUserCredential(username string) (credential.UserCredential, error) {
 	if err != nil {
 		return nil, err
 	}
-	storage := credential.NewKeyValueStorage(kvStorage)
+	s := credential.NewKeyValueStorage(kvStorage)
 
-	return credential.NewUserCredential(username, storage), nil
+	return credential.NewUserCredential(username, s), nil
 }
