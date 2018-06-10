@@ -20,7 +20,7 @@ func TestNotGrantedAccess(t *testing.T) {
 	granter.Grant("root")
 
 	checker := permission.NewChecker(resource, storage)
-	hasAccess, _ := checker.HasAccess([]string{"admin"})
+	hasAccess, _ := checker.HasAccess("admin")
 	if hasAccess {
 		t.Error(`Access allowed for not granted role`)
 	}
@@ -39,12 +39,12 @@ func TestGrantedAccess(t *testing.T) {
 	granter.Grant("admin", "attendent")
 
 	checker := permission.NewChecker(resource, storage)
-	hasAccess, _ := checker.HasAccess([]string{"admin"})
+	hasAccess, _ := checker.HasAccess("admin")
 	if !hasAccess {
 		t.Error(`Access denied for granted role`)
 	}
 
-	hasAccess, _ = checker.HasAccess([]string{"attendent"})
+	hasAccess, _ = checker.HasAccess("attendent")
 	if !hasAccess {
 		t.Error(`Access denied for granted role`)
 	}
@@ -64,7 +64,7 @@ func TestRevokedAccess(t *testing.T) {
 	granter.Revoke("admin")
 
 	checker := permission.NewChecker(r, s)
-	hasAccess, _ := checker.HasAccess([]string{"admin"})
+	hasAccess, _ := checker.HasAccess("admin")
 	if hasAccess {
 		t.Error(`Access allowed for revoked role`)
 	}

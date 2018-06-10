@@ -7,7 +7,7 @@ import (
 const hasAccessErrorFmt = `Error when checking if "%v" has access to "%s". Reason: %v`
 
 type Checker interface {
-	HasAccess([]string) (bool, error)
+	HasAccess(roles ...string) (bool, error)
 }
 
 type checker struct {
@@ -15,7 +15,7 @@ type checker struct {
 	s        Storage
 }
 
-func (c *checker) HasAccess(roles []string) (bool, error) {
+func (c *checker) HasAccess(roles ...string) (bool, error) {
 	hasAccess, err := c.s.HasAnyRole(c.resource, roles...)
 	if err != nil {
 		err = fmt.Errorf(hasAccessErrorFmt, roles, c.resource, err)
