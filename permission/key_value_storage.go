@@ -9,7 +9,7 @@ type keyValueStorage struct {
 }
 
 func (s *keyValueStorage) AddRoles(resource string, roles ...string) error {
-	_, err := s.kvStorage.SetAdd(resource, roles...)
+	_, err := s.kvStorage.SetAdd(resource, storage.StrListToInterfaceList(roles)...)
 	if err != nil {
 		return err
 	}
@@ -18,7 +18,7 @@ func (s *keyValueStorage) AddRoles(resource string, roles ...string) error {
 }
 
 func (s *keyValueStorage) RemoveRoles(resource string, roles ...string) error {
-	_, err := s.kvStorage.SRem(resource, roles...)
+	_, err := s.kvStorage.SRem(resource, storage.StrListToInterfaceList(roles)...)
 	if err != nil {
 		return err
 	}

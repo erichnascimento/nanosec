@@ -77,6 +77,20 @@ func TestCredentialRoles(t *testing.T) {
 	if !reflect.DeepEqual(roles, gaveRoles) {
 		t.Errorf(`Roles does not matches. expected = "%v", gave = "%v"`, roles, gaveRoles)
 	}
+
+	err = uc.RemoveRoles("admin", "buyer")
+	if err != nil {
+		t.Errorf(`Unexpected error when removing roles: %v`, err)
+	}
+
+	gaveRoles, err = uc.GetRoles()
+	if err != nil {
+		t.Errorf(`Unexpected error when getting roles after remove them: %v`, err)
+	}
+
+	if len(gaveRoles) != 0 {
+		t.Errorf(`Roles was not removed. Expected a empty list, gave = %v`, gaveRoles)
+	}
 }
 
 func createUserCredential(username string) (credential.UserCredential, error) {
